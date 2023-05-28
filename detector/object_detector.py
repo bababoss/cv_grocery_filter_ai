@@ -4,17 +4,7 @@ import argparse
 import numpy as np
 
 from classifier import inference
-
-
-import requests
-def sent_signal_to_pi(class_type):
-    if class_type == "tometo":
-        cls_id=1
-    elif class_type == "lemon":
-        cls_id=2
-    x = requests.get(f"http://23.22.332.222:5000/home/{cls_id}")
-
-    print(x.json())
+from common import pi_utils
 
 
 
@@ -78,7 +68,7 @@ def run_detector(model_net,video_path=None):
                             object_class=inference.predict(crop_img,model_net)
                             print(i,object_class)
                             # Write here code to send to raspbery Pi
-                            # sent_signal_to_pi(object_class.lower())
+                            pi_utils.sent_signal_to_pi(object_class.lower())
                             cv2.imwrite(f"crops/c{i}_{idx}.jpg",crop_img)
                         cv2.rectangle(frame, (x,y), (x+w,y+h), color, thickness)
                         frame[y:y+h,x:x+w,1] = np.bitwise_or(frame[y:y+h,x:x+w,1], fgMask[y:y+h,x:x+w])
