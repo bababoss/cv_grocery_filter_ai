@@ -1,7 +1,14 @@
 # cv_grocery_filter_ai
 
+## Code SETUP and download
+```
+git clone https://github.com/bababoss/cv_grocery_filter_ai.git
+cd cv_grocery_filter_ai
+```
+
 ## Python dep setup
 ```
+
 pip install -r requirements.txt
 ```
 
