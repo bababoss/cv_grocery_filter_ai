@@ -69,7 +69,7 @@ def run_detector(model_net,video_path=None):
                             print(i,object_class)
                             # Write here code to send to raspbery Pi
                             pi_utils.sent_signal_to_pi(object_class.lower())
-                            cv2.imwrite(f"crops/c{i}_{idx}.jpg",crop_img)
+                            cv2.imwrite(f"input/train/tomoto/c{i}_{idx}.jpg",crop_img)
                         cv2.rectangle(frame, (x,y), (x+w,y+h), color, thickness)
                         frame[y:y+h,x:x+w,1] = np.bitwise_or(frame[y:y+h,x:x+w,1], fgMask[y:y+h,x:x+w])
 
