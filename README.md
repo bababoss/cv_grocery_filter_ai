@@ -25,3 +25,10 @@ detector/object_detector.py
 ```
 python main.py
 ```
+
+## Pull latest changes 
+
+```
+
+git pull origin main
+```
