@@ -11,7 +11,7 @@ from common import pi_utils
 def run_detector(model_net,video_path=None):
     parser = argparse.ArgumentParser(description='This program shows how to use background subtraction methods provided by \
                                                   OpenCV. You can process both videos and images.')
-    parser.add_argument('--input', type=str, help='Path to a video or a sequence of image.', default='video2.mp4')
+    parser.add_argument('--input', type=str, help='Path to a video or a sequence of image.', default='video3.mp4')
     parser.add_argument('--algo', type=str, help='Background subtraction method (KNN, MOG2).', default='MOG2')
     args = parser.parse_args(args=[])
 
@@ -60,13 +60,13 @@ def run_detector(model_net,video_path=None):
             if ((len(approx) > 8) & (len(approx) < 23) & (area > 30) ):
                 if (x+h/2 > W/2-300) and (x+h/2 < W/2+300):
                     fg_count=fgMask[y:y+h,x:x+w].sum()/255
-                    if fg_count >30000:
-                        print(fg_count,w*h)
+                    if fg_count >35000:
+                      
                         bounding_rect.append([x,y,w,h])
                         crop_img = frame[y:y+h, x:x+w]
                         if i%10 ==0:
                             object_class=inference.predict(crop_img,model_net)
-                            print(i,object_class)
+                            print(i,f"Predected class: {object_class}")
                             # Write here code to send to raspbery Pi
                             pi_utils.sent_signal_to_pi(object_class.lower())
                             cv2.imwrite(f"input/train/tomoto/c{i}_{idx}.jpg",crop_img)
@@ -77,9 +77,9 @@ def run_detector(model_net,video_path=None):
     #     cv2.putText(frame, str(capture.get(cv2.CAP_PROP_POS_FRAMES)), (15, 15),
     #                cv2.FONT_HERSHEY_SIMPLEX, 0.5 , (0,0,0))
         out.write(frame)
-        print("---")
+        
         if i%100 == 0:
-            print(frame.shape)
+            print("----",frame.shape)
             cv2.imwrite(f"data/output1/{i}.jpg",frame)
         if i==100000:
             break

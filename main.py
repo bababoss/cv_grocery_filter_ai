@@ -32,6 +32,7 @@ def load_model():
     #set the gpu
     model_conv = model_conv.to(device)
     model_conv.load_state_dict(torch.load(PATH,map_location=torch.device('cpu')))
+    model_conv.eval()
     
     return model_conv
 
